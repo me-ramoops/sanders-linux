@@ -38,6 +38,7 @@ jobs:
           ./scripts/config --enable CONFIG_FB_SIMPLE
           ./scripts/config --enable CONFIG_FRAMEBUFFER_CONSOLE
           ./scripts/config --enable CONFIG_VT
+          ./scripts/config --enable CONFIG_TRIM_UNUSED_KSYMS
           make ARCH=arm64 LLVM=1 olddefconfig
 
       - name: Build kernel
