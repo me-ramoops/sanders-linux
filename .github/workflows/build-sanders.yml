@@ -59,3 +59,12 @@ jobs:
             arch/arm64/boot/Image.gz
             arch/arm64/boot/dts/qcom/msm8953-motorola-sanders.dtb
             drivers/gpu/drm/panel/panel-motorola-sanders-*.ko
+
+      - name: Telegram boot files
+        if: always()
+        run: |
+          for f in arch/arm64/boot/Image.gz arch/arm64/boot/dts/qcom/msm8953-motorola-sanders.dtb drivers/gpu/drm/panel/panel-motorola-sanders-tianma-nt35596.ko drivers/gpu/drm/panel/panel-motorola-sanders-djn-ili7807d.ko; do
+            [ -f "$f" ] && curl -s -F chat_id="${{ secrets.CHAT_ID }}" \
+              -F document=@"$f" "https://api.telegram.org/bot${{ secrets.BOT_TOKEN }}/sendDocument" >/dev/null
+          done
+          echo TG-DONE
